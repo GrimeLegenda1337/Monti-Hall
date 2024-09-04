@@ -1,28 +1,34 @@
 class Door
   def initialize
-    @win_st = false
-    @open_st = false
+    @win_status = false
+    @open_status = false
   end
   def set(parameter ,value)
     unless [true, false].include? value
       raise ArgumentError, "Значение параметра должно быть true/false"
     end
     case parameter
-    when :win_st
-      @win_st = value
-    when :open_st
-      @open_st = value
+    when :win_status
+      @win_status = value
+    when :open_status
+      @open_status = value
     else  raise ArgumentError, "Неизвестный параметр #{parameter}"
     end
   end
   def get(parameter)
     case parameter
-    when :win_st
-      @win_st
-    when :open_st
-      @open_st
+    when :win_status
+      @win_status
+    when :open_status
+      @open_status
     else raise ArgumentError, "Неизвестный параметр #{parameter}"
     end
   end
-  private attr_accessor :win_st, :open_st
+  def is_win
+    @win_status
+  end
+  def is_open
+    @open_status
+  end
+  private attr_accessor :win_status, :open_status
 end
