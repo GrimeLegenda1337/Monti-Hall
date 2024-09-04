@@ -1,5 +1,6 @@
 class Door
   def initialize(id)
+    raise ArgumentError, "Допустим только елочисленный тип данных" unless id.is_a?(Integer)
     @id = id
     @win_status = false
     @open_status = false

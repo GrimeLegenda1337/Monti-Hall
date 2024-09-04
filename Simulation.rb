@@ -1,6 +1,8 @@
 require_relative 'game'
 class Simulation
   def initialize (behaviour,num_games)
+    raise ArgumentError, "Неверный вариант поведения ведущего" unless [:classic, :devil, :angel].include?(behaviour)
+    raise ArgumentError, "Только положительное целочисленное" unless num_games.is_a?(Integer) && num_games > 0
     @behaviour = behaviour
     @num_games = num_games
     @wins_with_change = 0
