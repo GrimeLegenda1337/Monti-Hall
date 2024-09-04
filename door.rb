@@ -1,9 +1,13 @@
 class Door
-  def initialize
+  def initialize(id)
+    @id = id
     @win_status = false
     @open_status = false
   end
   def set(parameter ,value)
+    if parameter == :id
+      raise ArgumentError, "Запрет на изменение параметра id"
+    end
     unless [true, false].include? value
       raise ArgumentError, "Значение параметра должно быть true/false"
     end
@@ -21,6 +25,8 @@ class Door
       @win_status
     when :open_status
       @open_status
+    when :id
+      @id
     else raise ArgumentError, "Неизвестный параметр #{parameter}"
     end
   end
@@ -30,5 +36,5 @@ class Door
   def is_open
     @open_status
   end
-  private attr_accessor :win_status, :open_status
+  private attr_accessor :win_status, :open_status, :id
 end
