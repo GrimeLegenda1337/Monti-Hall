@@ -80,6 +80,3 @@ class Game
     behaviour_variator
   end
 end
-
-XXX = Game.new(:classic)
-XXX.simulate
