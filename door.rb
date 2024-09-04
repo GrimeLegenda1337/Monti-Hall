@@ -5,7 +5,8 @@ class Door
     @win_status = false
     @open_status = false
   end
-  def set(parameter ,value)
+
+  def set(parameter, value)
     if parameter == :id
       raise ArgumentError, "Запрет на изменение параметра id"
     end
@@ -17,9 +18,11 @@ class Door
       @win_status = value
     when :open_status
       @open_status = value
-    else  raise ArgumentError, "Неизвестный параметр #{parameter}"
+    else
+      raise ArgumentError, "Неизвестный параметр #{parameter}"
     end
   end
+
   def get(parameter)
     case parameter
     when :win_status
@@ -28,15 +31,19 @@ class Door
       @open_status
     when :id
       @id
-    else raise ArgumentError, "Неизвестный параметр #{parameter}"
+    else
+      raise ArgumentError, "Неизвестный параметр #{parameter}"
     end
   end
+
   def is_win
     @win_status
   end
+
   def is_open
     @open_status
   end
+
   private attr_accessor :win_status, :open_status, :id
 end
 

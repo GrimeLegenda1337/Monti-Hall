@@ -1,5 +1,6 @@
 require_relative 'door'
 require_relative 'player'
+
 class Game
   attr_reader :doors, :player, :winning_door
 
@@ -10,9 +11,11 @@ class Game
     @player = Player.new
     @host_behaviour = behaviour
   end
+
   def player_choose_door
     @player.set(:door_chosen, @doors.sample.get(:id))
   end
+
   def player_choose_door_2
     chosen_door_id = @player.get(:door_chosen)
     remaining_doors = @doors.reject do |door|
@@ -23,6 +26,7 @@ class Game
       @player.set(:door_chosen, new_door.get(:id))
     end
   end
+
   def host_choose_door
     first_pick_id = @player.get(:door_chosen)
     host_last_doors = @doors.reject { |door| door.get(:id) == first_pick_id || door.is_win }
@@ -33,9 +37,11 @@ class Game
     end
     host_chosen_door.set(:open_status, true)
   end
+
   def check_win
     @player.set(:win_status, @player.get(:door_chosen) == @winning_door.get(:id))
   end
+
   def behaviour_variator
     check_win
     case @host_behaviour
@@ -49,23 +55,26 @@ class Game
       raise ArgumentError, "Неизвестный вариант поведения ведущего #{@host_behaviour}"
     end
   end
+
   def offer_change_classic
     host_choose_door
-  change_decision = [true, false].sample
-  if change_decision
-    @player.set(:change_status, true)
-    player_choose_door_2
-  end
+    change_decision = [true, false].sample
+    if change_decision
+      @player.set(:change_status, true)
+      player_choose_door_2
+    end
     check_win
   end
+
   def offer_change_devil
     host_choose_door
     if check_win
-      @player.set(:change_status, [true,false].sample)
+      @player.set(:change_status, [true, false].sample)
       player_choose_door_2 if @player.get(:change_status)
       check_win
     end
   end
+
   def offer_change_angel
     unless check_win
       host_choose_door
@@ -75,6 +84,7 @@ class Game
       check_win
     end
   end
+
   def simulate
     player_choose_door
     behaviour_variator

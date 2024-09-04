@@ -1,6 +1,7 @@
 require_relative 'game'
+
 class Simulation
-  def initialize (behaviour,num_games)
+  def initialize (behaviour, num_games)
     raise ArgumentError, "Неверный вариант поведения ведущего" unless [:classic, :devil, :angel].include?(behaviour)
     raise ArgumentError, "Только положительное целочисленное" unless num_games.is_a?(Integer) && num_games > 0
     @behaviour = behaviour
@@ -12,6 +13,7 @@ class Simulation
     run_simulation
     print_results
   end
+
   def run_simulation
     @num_games.times do
       game = Game.new(@behaviour)
@@ -22,6 +24,7 @@ class Simulation
       @losses_without_change += 1 if !game.player.get(:win_status) && !game.player.get(:change_status)
     end
   end
+
   def print_results
     wins_with_change_percentage = (@wins_with_change.to_f / @num_games * 100).round(2)
     losses_with_change_percentage = (@losses_with_change.to_f / @num_games * 100).round(2)
@@ -32,8 +35,8 @@ class Simulation
     puts "Выигрыш со сменой двери #{wins_with_change_percentage}% #{@wins_with_change} раз из #{@num_games}"
     puts "Проигрыш без смены двери #{losses_without_change_percentage}% #{@losses_without_change} раз из #{@num_games}"
     puts "Проигрыш со сменой двери #{losses_with_change_percentage}% #{@losses_with_change} раз из #{@num_games}"
-    puts @wins_with_change+@wins_without_change+@losses_without_change+@losses_with_change
+    puts @wins_with_change + @wins_without_change + @losses_without_change + @losses_with_change
   end
 end
 
-Simulation.new(:angel,100000)
+Simulation.new(:angel, 100000)
