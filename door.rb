@@ -38,3 +38,4 @@ class Door
   end
   private attr_accessor :win_status, :open_status, :id
 end
+

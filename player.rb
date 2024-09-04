@@ -19,7 +19,6 @@ class Player
     end
     instance_variable_set("@#{parameter}", value)
   end
-
   def get(parameter)
     case parameter
     when :win_status, :change_status , :door_chosen
@@ -28,7 +27,6 @@ class Player
       raise ArgumentError, "Неизвестный параметр #{parameter}"
     end
   end
-
   def is_winner
     @win_status
   end
