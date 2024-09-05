@@ -5,6 +5,9 @@ class Game
   attr_reader :doors, :player, :winning_door
 
   def initialize(behaviour)
+    unless [:classic, :devil, :angel].include?(behaviour)
+      raise ArgumentError, "Неизвестный вариант поведения ведущего #{behaviour}"
+    end
     @doors = Array.new(3) { |i| Door.new(i + 1) }
     @winning_door = @doors.sample
     @winning_door.set(:win_status, true)
