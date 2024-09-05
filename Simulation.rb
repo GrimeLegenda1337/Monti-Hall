@@ -35,8 +35,7 @@ class Simulation
     puts "Выигрыш со сменой двери #{wins_with_change_percentage}% #{@wins_with_change} раз из #{@num_games}"
     puts "Проигрыш без смены двери #{losses_without_change_percentage}% #{@losses_without_change} раз из #{@num_games}"
     puts "Проигрыш со сменой двери #{losses_with_change_percentage}% #{@losses_with_change} раз из #{@num_games}"
-    puts @wins_with_change + @wins_without_change + @losses_without_change + @losses_with_change
   end
 end
 
-Simulation.new(:angel, 100000)
+#Simulation.new(:angel, 1)
