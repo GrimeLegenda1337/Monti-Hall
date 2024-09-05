@@ -4,7 +4,7 @@ require_relative '../player.rb'
 RSpec.describe Player do
   let(:player) { Player.new }
   describe '#init' do
-  it 'initialization with def (false,false,nil) values' do
+  it 'init' do
     expect(player.get(:win_status)).to be_falsey
     expect(player.get(:change_status)).to be_falsey
     expect(player.get(:door_chosen)).to be_nil
