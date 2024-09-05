@@ -39,7 +39,7 @@ class Simulation
 end
 
 
-#Simulation.new(:classic, 10000)
+Simulation.new(:classic, 10000)
 
 #Высший класс.Запускает инициализированное количество раз симуляцию game, для каждой из которых ведётся статистика
 # ArgumentError на задаваемом поведении(для всех num_games игр) и самом количестве игр

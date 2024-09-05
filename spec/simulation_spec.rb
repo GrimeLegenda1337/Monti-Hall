@@ -30,7 +30,7 @@ RSpec.describe Simulation do
   end
 
   describe '#run_simulation' do
-    before(:each)
+    before(:each) do
       @simulations = {}
       @behaviours.each do |behaviour|
         @simulations[behaviour] = Array.new(@simulations_per_behaviour) { Simulation.new(behaviour, @num_games) }
