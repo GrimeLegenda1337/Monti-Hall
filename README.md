@@ -12,4 +12,4 @@ Angel variation
 
 Test coverage
 
-![Coverage](https://github.com/user-attachments/assets/d2341493-3a2d-4b66-9981-2e2aa6c78782)
+![Coverage](https://github.com/user-attachments/assets/6e0ed5c3-fec8-4fb4-83c5-a6c6714a7eb5)
