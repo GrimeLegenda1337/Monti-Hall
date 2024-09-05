@@ -30,17 +30,6 @@ class Player
     end
   end
 
-  def is_winner
-    @win_status
-  end
-
-  def changed_door
-    @change_status
-  end
-
-  def chosen_door
-    @door_chosen
-  end
 
   private
 
