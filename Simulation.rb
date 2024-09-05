@@ -38,4 +38,5 @@ class Simulation
   end
 end
 
-#Simulation.new(:angel, 1)
+
+#Simulation.new(:classic, 10000)
