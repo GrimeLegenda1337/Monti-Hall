@@ -5,7 +5,7 @@ require_relative '../game.rb'
 
 
 RSpec.describe Game do
-  it 'Ошибка зависимости player и door' do
+  it 'Ошибка зависимости player и door' do #проверка попытки запуска без наследуемых классов
     Object.send(:remove_const,:Player) if defined?(Player)
     expect{Game.new(:classic)}.to raise_error(NameError)
     load 'player.rb'
@@ -15,7 +15,7 @@ RSpec.describe Game do
   end
   describe '#init' do
     let(:game) { Game.new(:classic) }
-    it 'задаётся поведение ведущего или выдаётся ошибка' do
+    it 'задаётся поведение ведущего или выдаётся ошибка' do # начальная проверка поведения ведущего при инициализации
       expect(Game.new(:classic).instance_variable_get(:@host_behaviour)).to eq(:classic)
       expect(Game.new(:devil).instance_variable_get(:@host_behaviour)).to eq(:devil)
       expect(Game.new(:angel).instance_variable_get(:@host_behaviour)).to eq(:angel)
@@ -23,8 +23,8 @@ RSpec.describe Game do
     end
     it 'создаёт массив из трёх дверей c id 1,2,3 , одна из которых с выигрышем' do
       doors = game.instance_variable_get(:@doors)
-      winning_door = game.instance_variable_get(:@winning_door)
-      expect(doors.size).to eq(3)
+      winning_door = game.instance_variable_get(:@winning_door) # проверки количество дверей в игре, их номеров
+      expect(doors.size).to eq(3)                               # и наличия одной выигрышной двери
       doors.each do |door| expect(door).to be_instance_of(Door) end
       doors.each do |door| expect([1, 2, 3]).to include(door.get(:id)) end
       expect(winning_door.get(:win_status)).to be_truthy
@@ -33,10 +33,10 @@ RSpec.describe Game do
       expect(game.instance_variable_get(:@player)).to be_instance_of(Player)
       expect(game.instance_variable_get(:@player).get(:win_status)).to be_falsey
       expect(game.instance_variable_get(:@player).get(:change_status)).to be_falsey
-    end
+    end # проверка инициализированного игрока в игре
   end
   describe '#player_choose_door' do
-    it 'Дверь игроком выбирается из трёх существующих дверей' do
+    it 'Дверь игроком выбирается из трёх существующих дверей' do # проверка первого выбора, что выбрано из 3х дверей
       game = Game.new(:classic);player = game.instance_variable_get(:@player)
       game.player_choose_door
       id = player.get(:door_chosen);doors_id = game.instance_variable_get(:@doors).map {|door| door.get(:id) }
@@ -51,8 +51,8 @@ RSpec.describe Game do
       game.player_choose_door
       winning_door = game.instance_variable_get(:@winning_door)
       winning_door.set(:win_status, true)
-
-      game.host_choose_door
+                                          #проверка выбора ведущего с условиями(не выигрышная)и(не выбор игрока)
+      game.host_choose_door               #и проверка, что выбранная ведущим дверь была открыта
       chosen_door = doors.find { |door| door.get(:open_status) }
 
       expect(doors.reject { |door| door.get(:id) == player.get(:door_chosen) || door.get(:win_status) }).to include(chosen_door)
@@ -66,8 +66,8 @@ RSpec.describe Game do
       player = game.instance_variable_get(:@player)
       doors = game.instance_variable_get(:@doors)
       winning_door = game.instance_variable_get(:@winning_door)
-      game.player_choose_door
-      first_choice = player.get(:door_chosen)
+      game.player_choose_door # проверка второго выбора игрока с условием (не предыдущий выбор)и(не выбор ведущего)
+      first_choice = player.get(:door_chosen) #по факту выбор может происходить и из одной двери, но может и из 2
       game.host_choose_door
       host_choice = doors.find { |door| door.get(:open_status) }
       game.player_choose_door_2
@@ -81,7 +81,7 @@ RSpec.describe Game do
       [:classic,:devil,:angel].each do |behaviour|
         game = Game.new(behaviour)
         expect{game.simulate}.to_not raise_error
-      end
+      end                         #проверка вариатора. Если неверное поведение - ошибка
     end
     it 'Вызывает ошибку для неизвестного поведения' do
       expect{Game.new(:unknown).simulate}.to raise_error(ArgumentError,"Неизвестный вариант поведения ведущего #{:unknown}")
@@ -92,8 +92,8 @@ RSpec.describe Game do
         allow(game).to receive(:offer_change_classic)
         allow(game).to receive(:offer_change_devil)
         allow(game).to receive(:offer_change_angel)
-
-        case behaviour
+                                                    #дальнейшая проверка вариатора. Если поведение верное
+        case behaviour                              #Выполнится ли оно(до конца) в симуляции игры
         when :classic
           game.simulate
           expect(game).to have_received(:offer_change_classic).once

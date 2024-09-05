@@ -4,28 +4,28 @@ require_relative '../player.rb'
 RSpec.describe Player do
   let(:player) { Player.new }
   describe '#init' do
-  it 'init' do
+  it 'init' do # проверка верной инициализации
     expect(player.get(:win_status)).to be_falsey
     expect(player.get(:change_status)).to be_falsey
     expect(player.get(:door_chosen)).to be_nil
   end
   end
-  describe '#set' do
+  describe '#set' do #проверка неверных данных при попытки изменения атрибута типа bool
     it 'Ошибка для win_status и change_status по отсуствию true/false' do
       expect{player.set(:win_status,'invalid')}.to raise_error ArgumentError
       expect{player.set(:win_status,'nil')}.to raise_error ArgumentError
       expect{player.set(:change_status,'invalid')}.to raise_error ArgumentError
       expect{player.set(:change_status,'invalid')}.to raise_error ArgumentError
     end
-    it 'Ошибка для door_chosen отличных от 1,2,3' do
+    it 'Ошибка для door_chosen отличных от 1,2,3' do #проверка верности заданности двери
       expect{player.set(:door_chosen,4)}.to raise_error ArgumentError
       expect{player.set(:door_chosen,-1)}.to raise_error ArgumentError
       expect{player.set(:door_chosen,'a')}.to raise_error ArgumentError
     end
-    it 'Ошибка неизвестного параметра' do
+    it 'Ошибка неизвестного параметра' do # проверка неверно выбранного атрибута
       expect{player.set(:unknown_parameter,true)}.to raise_error ArgumentError
     end
-    it 'Нормальная работа set при верных данных' do
+    it 'Нормальная работа set при верных данных' do #проверка работы set для верных атрибутов и данных
       expect{player.set(:win_status, true) }.not_to raise_error
       expect{player.set(:change_status, false) }.not_to raise_error
       expect{player.set(:door_chosen, 2) }.not_to raise_error
@@ -40,7 +40,7 @@ RSpec.describe Player do
         win_status: [true,false],
         change_status: [true,false],
         door_chosen: [1,2,3]
-      }
+      }         #проверка работы get при верных атрибутах
       test_data.each do |param, values|
         values.each do |value|
           player.set(param, value)
@@ -48,11 +48,11 @@ RSpec.describe Player do
         end
       end
     end
-    it 'Ошибка неизвестного параметра' do
+    it 'Ошибка неизвестного параметра' do #проверка ошибочного искомого атрибута
       expect { player.get(:unknown_param) }.to raise_error(ArgumentError)
     end
   end
-  describe 'Попытка доступа напрямую' do
+  describe 'Попытка доступа напрямую' do #проверка прямого доступа в обход get/set
     it 'Ошибка при попытка доступа к атрибутам класса' do
       expect { player.win_status }.to raise_error(NoMethodError)
       expect { player.change_status }.to raise_error(NoMethodError)
