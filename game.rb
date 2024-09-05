@@ -19,7 +19,7 @@ class Game
   def player_choose_door_2
     chosen_door_id = @player.get(:door_chosen)
     remaining_doors = @doors.reject do |door|
-      door.get(:id) == chosen_door_id || door.is_open
+      door.get(:id) == chosen_door_id || door.get(:open_status)
     end
     if remaining_doors.any?
       new_door = remaining_doors.sample
@@ -29,7 +29,7 @@ class Game
 
   def host_choose_door
     first_pick_id = @player.get(:door_chosen)
-    host_last_doors = @doors.reject { |door| door.get(:id) == first_pick_id || door.is_win }
+    host_last_doors = @doors.reject { |door| door.get(:id) == first_pick_id || door.get(:win_status) }
     if host_last_doors.size == 1
       host_chosen_door = host_last_doors.first
     else

@@ -1,8 +1,5 @@
 require 'rspec'
 require_relative '../player.rb'
-#require 'simplecov'
-
-#SimpleCov.start
 
 RSpec.describe Player do
   let(:player) { Player.new }

@@ -1,6 +1,6 @@
 class Door
   def initialize(id)
-    raise ArgumentError, "Допустим только елочисленный тип данных" unless id.is_a?(Integer)
+    raise ArgumentError, "Допустим только целочисленный тип данных" unless id.is_a?(Integer)
     @id = id
     @win_status = false
     @open_status = false
@@ -34,14 +34,6 @@ class Door
     else
       raise ArgumentError, "Неизвестный параметр #{parameter}"
     end
-  end
-
-  def is_win
-    @win_status
-  end
-
-  def is_open
-    @open_status
   end
 
   private attr_accessor :win_status, :open_status, :id
